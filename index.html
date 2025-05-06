@@ -2,19 +2,33 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
     <title>ClickFast</title>
   </head>
   <body>
-    <div id="main">
-      <div id="container">
-        <h1 class="flex">ClickFast</h1>
-        <p class="catchphrase">Sois le plus rapide des clickers du game ⚡</p>
-      </div>
+    <div id="main" class="d-flex justify-content-center align-items-center min-vh-100">
+        <div id="container" class="text-center">
+            <h1 class="mb-4">ClickFast</h1>
+            <p class="catchphrase mb-4">Sois le plus rapide des clickers du game ⚡</p>
+            <!-- Ajout de l'affichage du score -->
+            <div id="score-display" class="mb-4">Score : 0</div>
+            <div class="timer-section d-flex justify-content-center flex-column align-items-center">
+                <select id="timer-select" class="form-select w-50 mb-3" aria-label="Sélection du temps de jeu">
+                    <option value="5">5 secondes</option>
+                    <option value="10" selected>10 secondes</option>
+                    <option value="15">15 secondes</option>
+                    <option value="30">30 secondes</option>
+                </select>
+                <div id="timer" class="mb-4">10</div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button id="button-clicker" class="btn btn-primary">Click</button>
+                <button id="button-reset" class="btn btn-secondary ms-2">Reset</button>
+              </div>
+        </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
