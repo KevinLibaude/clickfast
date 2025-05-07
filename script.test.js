@@ -52,6 +52,23 @@ test('Select timer disabled',() => {
     expect(elements.timerSelect.disabled).toBe(true);
 });
 
+test('"Click" button disabled when no time left',() => {
+    const gameState = {
+        count: 0,
+        timeLeft: 0,
+        timer: null,
+        isGameStarted: false
+    };
+    const elements = {
+        buttonClicker : document.getElementById('button-clicker'),
+        scoreDisplay : document.getElementById('score-display'),
+        timerSelect : document.getElementById('timer-select'),
+    }
+    script.startTimer(gameState,elements);
+
+    expect(elements.buttonClicker.disabled).toBe(true);
+});
+
 test('clic on Reset button',() => {
     const gameState = {
         count: 5,
