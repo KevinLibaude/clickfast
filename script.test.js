@@ -19,7 +19,7 @@ beforeEach(() => {
     </div>
     `;
 });
-test('clic on button',() => {
+test('clic on "Click" button',() => {
     const gameState = {
         count: 0,
         timeLeft: 0,
@@ -36,7 +36,23 @@ test('clic on button',() => {
     expect(elements.scoreDisplay.textContent).toBe('Score : 1');
 });
 
-test('clic on reset button',() => {
+test('Select timer disabled',() => {
+    const gameState = {
+        count: 0,
+        timeLeft: 0,
+        timer: null,
+        isGameStarted: false
+    };
+    const elements = {
+        buttonClicker : document.getElementById('button-clicker'),
+        scoreDisplay : document.getElementById('score-display'),
+        timerSelect : document.getElementById('timer-select'),
+    }
+    script.startTimer(gameState,elements);
+    expect(elements.timerSelect.disabled).toBe(true);
+});
+
+test('clic on Reset button',() => {
     const gameState = {
         count: 5,
         timeLeft: 0,
@@ -99,4 +115,24 @@ test('Score update on button click',() => {
     script.updateScore(elements.scoreDisplay,state.count);
     script.handleClick(state,elements);
     expect(elements.scoreDisplay.textContent).toBe('Score : 6');
+});
+
+test('Game init', () => {
+    const state = {
+        count: 5,
+        timeLeft: 0,
+        timer: null,
+        isGameStarted: false
+    };
+    // Capturer le retour de la fonction dans une variable
+    const result = script.initGame(state);
+    
+    // Vérifier que result contient tous les éléments attendus
+    expect(result).toEqual({
+        buttonClicker: expect.any(HTMLElement),
+        buttonReset: expect.any(HTMLElement),
+        timerDisplay: expect.any(HTMLElement),
+        timerSelect: expect.any(HTMLElement),
+        scoreDisplay: expect.any(HTMLElement)
+    });
 });
