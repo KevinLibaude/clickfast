@@ -1,0 +1,26 @@
+{
+  "name": "clickfast",
+  "version": "1.0.0",
+  "description": "Sois le plus rapide des clickers du game ⚡",
+  "main": "script.js",
+  "scripts": {
+    "test": "npx jest --env=jsdom"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinLibaude/clickfast.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinLibaude/clickfast/issues"
+  },
+  "homepage": "https://github.com/KevinLibaude/clickfast#readme",
+  "dependencies": {
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^26.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

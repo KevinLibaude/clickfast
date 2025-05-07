@@ -1,70 +1,96 @@
-// Une fois que le HTML ressemble à ce que vous voulez : 
-document.addEventListener('DOMContentLoaded', function() {
-    let count = 0;
-    const buttonClicker = document.querySelector("#button-clicker");
-    const buttonReset = document.querySelector("#button-reset");
-    const timerDisplay = document.querySelector("#timer");
-    const timerSelect = document.querySelector("#timer-select");
-    const scoreDisplay = document.querySelector("#score-display"); // Ajout
-    let timeLeft;
-    let timer; // Pour pouvoir clear l'intervalle depuis n'importe où
+// État du jeu
+const gameState = {
+    count: 0,
+    timeLeft: 0,
+    timer: null,
+    isGameStarted: false
+};
 
-    // Mettre à jour l'affichage initial du timer
-    timerDisplay.textContent = timerSelect.value;
+// Fonction pour mettre à jour le score
+function updateScore(scoreDisplay, count) {
+    scoreDisplay.textContent = `Score : ${count}`;
+}
 
-    // Mise à jour du timer quand on change la valeur
-    timerSelect.addEventListener('change', function() {
-        timerDisplay.textContent = this.value;
-    });
-
-    function updateScore() {
-        scoreDisplay.textContent = `Score : ${count}`;
+// Fonction pour réinitialiser le jeu
+function resetGame(state, elements) {
+    if (state.timer) {
+        clearInterval(state.timer);
     }
+    
+    state.count = 0;
+    state.timeLeft = parseInt(elements.timerSelect.value);
+    state.isGameStarted = false;
+    
+    elements.buttonClicker.disabled = false;
+    elements.timerSelect.disabled = false;
+    elements.timerDisplay.textContent = state.timeLeft;
+    
+    updateScore(elements.scoreDisplay, state.count);
+}
 
-    function resetGame() {
-        // Arrêter le timer s'il est en cours
-        if (timer) {
-            clearInterval(timer);
+// Fonction pour démarrer le timer
+function startTimer(state, elements) {
+    state.timeLeft = parseInt(elements.timerSelect.value);
+    elements.timerSelect.disabled = true;
+    state.isGameStarted = true;
+    
+    state.timer = setInterval(() => {
+        state.timeLeft--;
+        elements.timerDisplay.textContent = state.timeLeft;
+        
+        if (state.timeLeft <= 0) {
+            clearInterval(state.timer);
+            elements.buttonClicker.disabled = true;
+            alert(`Temps écoulé ! Score final : ${state.count} clics`);
+            elements.timerSelect.disabled = false;
         }
-        
-        // Réinitialiser les variables
-        count = 0;
-        timeLeft = parseInt(timerSelect.value);
-        updateScore(); // Mise à jour du score
-        
-        // Réactiver les éléments
-        buttonClicker.disabled = false;
-        timerSelect.disabled = false;
-        
-        // Réinitialiser l'affichage
-        timerDisplay.textContent = timerSelect.value;
+    }, 1000);
+}
+
+// Gestionnaire de clic
+function handleClick(state, elements) {
+    if (!state.isGameStarted) {
+        startTimer(state, elements);
     }
+    state.count += 1;
+    updateScore(elements.scoreDisplay, state.count);
+}
 
-    function startTimer() {
-        timeLeft = parseInt(timerSelect.value);
-        timerSelect.disabled = true; // Désactive le select pendant le jeu
-        
-        timer = setInterval(function() {
-            timeLeft--;
-            timerDisplay.textContent = timeLeft;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                buttonClicker.disabled = true;
-                alert(`Temps écoulé ! Score final : ${count} clics`);
-                timerSelect.disabled = false; // Réactive le select après la fin du jeu
-            }
-        }, 1000);
-    }
+// Gestionnaire de changement de timer
+function handleTimerChange(event, elements) {
+    elements.timerDisplay.textContent = event.target.value;
+}
 
-    // Event Listeners
-    buttonClicker.addEventListener("click", function() {
-        if (count === 0) {
-            startTimer();
-        }
-        count += 1;
-        updateScore(); // Mise à jour du score
-    });
+// Initialisation du jeu
+function initGame(state) {
+    const elements = {
+        buttonClicker: document.querySelector("#button-clicker"),
+        buttonReset: document.querySelector("#button-reset"),
+        timerDisplay: document.querySelector("#timer"),
+        timerSelect: document.querySelector("#timer-select"),
+        scoreDisplay: document.querySelector("#score-display")
+    };
+    
+    elements.timerDisplay.textContent = elements.timerSelect.value;
+    
+    elements.timerSelect.addEventListener('change', (e) => handleTimerChange(e, elements));
+    elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
+    elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
+    
+    return elements;
+}
 
-    buttonReset.addEventListener("click", resetGame);
+// Point d'entrée principal
+document.addEventListener('DOMContentLoaded', () => {
+    initGame(gameState);
 });
+
+module.exports = {
+    gameState,
+    updateScore,
+    resetGame,
+    startTimer,
+    handleClick,
+    handleTimerChange,
+    initGame
+}
