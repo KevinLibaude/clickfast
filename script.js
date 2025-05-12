@@ -1,5 +1,3 @@
-const { postData } = require('./API/sendScore.js');
-
 // État du jeu
 const gameState = {
     count: 0,
