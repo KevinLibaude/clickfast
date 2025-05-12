@@ -87,7 +87,8 @@ function initGame(state) {
         timerSelect: document.querySelector("#timer-select"),
         scoreDisplay: document.querySelector("#score-display"),
         pseudoInput: document.querySelector("#pseudo"),
-        buttonPseudo: document.querySelector("#button-pseudo")
+        buttonPseudo: document.querySelector("#button-pseudo"),
+        buttonValidate: document.querySelector("#button-validate"),
     };
     
     elements.timerDisplay.textContent = elements.timerSelect.value;
@@ -95,7 +96,6 @@ function initGame(state) {
     elements.timerSelect.addEventListener('change', (e) => handleTimerChange(e, elements));
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
-    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(state, elements));
     
     createPlayer(username);
 
