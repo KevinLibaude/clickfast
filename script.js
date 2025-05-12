@@ -86,9 +86,6 @@ function initGame(state) {
         timerDisplay: document.querySelector("#timer"),
         timerSelect: document.querySelector("#timer-select"),
         scoreDisplay: document.querySelector("#score-display"),
-        pseudoInput: document.querySelector("#pseudo"),
-        buttonPseudo: document.querySelector("#button-pseudo"),
-        buttonValidate: document.querySelector("#button-validate"),
     };
     
     elements.timerDisplay.textContent = elements.timerSelect.value;
