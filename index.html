@@ -44,10 +44,18 @@
                         <th>Joueur</th>
                         <th>Score</th>
                         <th>Date</th>
+                        <th>Avatar</th>
                     </tr>
                 </thead>
                 <tbody id="scores-table-body">
-                    <!-- Les scores seront insérés ici -->
+                    <template id="score-row">
+                        <tr>
+                            <td class="player-name"></td>
+                            <td class="player-score"></td>
+                            <td class="player-date"></td>
+                            <td><img class="player-avatar" width="50" height="50" /></td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
