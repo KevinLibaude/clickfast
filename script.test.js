@@ -167,6 +167,15 @@ test('Game init', () => {
         buttonReset: expect.any(HTMLElement),
         timerDisplay: expect.any(HTMLElement),
         timerSelect: expect.any(HTMLElement),
-        scoreDisplay: expect.any(HTMLElement)
+        scoreDisplay: expect.any(HTMLElement),
     });
+});
+
+test('Player Creation', () => {
+    const player = {
+        username: "Kevin",
+        score: 0
+    }
+    script.createPlayer(player);
+    expect(player.username).toBe("Kevin");
 });

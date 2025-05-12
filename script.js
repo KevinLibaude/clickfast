@@ -5,10 +5,21 @@ const gameState = {
     timer: null,
     isGameStarted: false
 };
+const player = {
+    username : "",
+    score : 0
+}
+
+let username = document.getElementById('pseudo');
 
 // Fonction pour mettre à jour le score
 function updateScore(scoreDisplay, count) {
     scoreDisplay.textContent = `Score : ${count}`;
+}
+
+function createPlayer(player){
+    this.username = username;
+    this.score = 0;
 }
 
 // Fonction pour réinitialiser le jeu
@@ -77,6 +88,8 @@ function initGame(state) {
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
     
+    createPlayer(username);
+
     return elements;
 }
 
@@ -92,5 +105,6 @@ module.exports = {
     startTimer,
     handleClick,
     handleTimerChange,
-    initGame
+    initGame,
+    createPlayer
 }

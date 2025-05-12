@@ -1,4 +1,4 @@
-const usernameToDelete = "JohnDoe";
+const usernameToDelete = document.getElementById("pseudo").value;
 
 const deleteUserByUsername = async (username) => {
   const url = "https://672e1217229a881691eed80f.mockapi.io/scores";
