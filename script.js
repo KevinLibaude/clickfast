@@ -32,7 +32,6 @@ function resetGame(state, elements) {
 function startTimer(state, elements) {
     state.timeLeft = parseInt(elements.timerSelect.value);
     elements.timerSelect.disabled = true;
-    elements.buttonReset.disabled = true;
     state.isGameStarted = true;
     
     state.timer = setInterval(() => {
