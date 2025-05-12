@@ -1,6 +1,6 @@
 const postData = async () => {
     const url = "https://672e1217229a881691eed80f.mockapi.io/scores";
-    let username = document.getElementById("pseudo").value;
+    let username = document.getElementById("pseudo");
   
     const data = {
       createdAt: new Date().toISOString(),
