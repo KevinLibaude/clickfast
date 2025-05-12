@@ -1,3 +1,5 @@
+const { postData } = require('./API/sendScore.js');
+
 // État du jeu
 const gameState = {
     count: 0,
@@ -69,8 +71,15 @@ function handleClick(state, elements) {
 }
 
 function handleValidateButtonClick(state, elements) {
-    const player = createPlayer(username.value);
-    postData(player);
+    const player = createPlayer(elements.pseudoInput.value);
+    try {
+        postData(player);
+        elements.pseudoInput.disabled = true;
+        elements.buttonPseudo.disabled = true;
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Erreur lors de l\'envoi du score');
+    }
 }
 
 // Gestionnaire de changement de timer
