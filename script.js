@@ -94,6 +94,41 @@ function handleTimerChange(event, elements) {
     elements.timerDisplay.textContent = event.target.value;
 }
 
+// Fonction pour afficher les scores
+async function displayScores() {
+    const url = "https://672e1217229a881691eed80f.mockapi.io/scores";
+    const tableBody = document.querySelector("#scores-table-body");
+    const template = document.querySelector("#score-row");
+
+    try {
+        const response = await fetch(url);
+        const scores = await response.json();
+        
+        // Tri des scores du plus élevé au plus bas
+        scores.sort((a, b) => b.score - a.score);
+        
+        // Vide le tableau avant de le remplir
+        while (tableBody.lastElementChild !== template) {
+            tableBody.removeChild(tableBody.lastElementChild);
+        }
+
+        // Prendre les 10 meilleurs scores
+        scores.slice(0, 10).forEach(score => {
+            const clone = template.content.cloneNode(true);
+            
+            // Remplissage des données
+            clone.querySelector(".player-name").textContent = score.username;
+            clone.querySelector(".player-score").textContent = score.score;
+            clone.querySelector(".player-date").textContent = new Date(score.createdAt).toLocaleDateString();
+            clone.querySelector(".player-avatar").src = score.avatar;
+            
+            tableBody.appendChild(clone);
+        });
+    } catch (error) {
+        console.error("Erreur lors du chargement des scores:", error);
+    }
+}
+
 // Initialisation du jeu
 function initGame(state) {
     const elements = {
@@ -122,6 +157,12 @@ function initGame(state) {
     elements.buttonPseudo.addEventListener("click", () => handleClick(elements));
 
     createPlayer(username);
+
+    // Affichage initial des scores
+    displayScores();
+    
+    // Mise à jour des scores après reset
+    elements.buttonReset.addEventListener('click', displayScores);
 
     return elements;
 }
