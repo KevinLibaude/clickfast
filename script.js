@@ -5,6 +5,7 @@ const gameState = {
     timer: null,
     isGameStarted: false
 };
+    
 const player = {
     username : "",
     score : 0
@@ -118,8 +119,7 @@ function initGame(state) {
     elements.timerSelect.addEventListener('change', (e) => handleTimerChange(e, elements));
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
-    
-    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(elements));
+    elements.buttonPseudo.addEventListener("click", () => handleClick(elements));
 
     createPlayer(username);
 
@@ -196,13 +196,13 @@ const postData = async () => {
   
       // Étape 3 : Ajouter un nouvel utilisateur
       const newUserData = {
-        createdAt: new Date().toISOString(),
-        username: "JohnDoe", // Vous pouvez changer le nom d'utilisateur si nécessaire
-        avatar:
-          "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2F0EpIWybDPfI%2Fhqdefault.jpg&f=1&nofb=1&ipt=ce88f4f6a1f2aee8e614210b05c3d89497b10763c7fd4ff1651ce821f5b3cd8d&ipo=images",
-        score: 100,
-        website_url: "onyj.github.io/ClickFast",
-      };
+            createdAt: new Date().toISOString(),
+            username: username,
+            avatar:
+             "https://yoolk.ninja/wp-content/uploads/2020/06/Akira-Kaneda-1024x819.png",
+            score: 0,
+            website_url: "kevinlibaude.github.io/ClickFast",
+          };
   
       const postResponse = await fetch(url, {
         method: "POST",
@@ -245,7 +245,6 @@ const postData = async () => {
   postData();
 
 module.exports = {
-    gameState,
     updateScore,
     resetGame,
     startTimer,

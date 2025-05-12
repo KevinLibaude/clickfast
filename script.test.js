@@ -158,6 +158,13 @@ test('Game init', () => {
         timer: null,
         isGameStarted: false
     };
+    const elements = {
+        buttonClicker: document.getElementById('button-clicker'),
+        buttonReset: document.getElementById('button-reset'),
+        timerDisplay: document.getElementById('timer'),
+        timerSelect: document.getElementById('timer-select'),
+        scoreDisplay: document.getElementById('score-display'),
+    };
     // Capturer le retour de la fonction dans une variable
     const result = script.initGame(state);
     
