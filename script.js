@@ -68,6 +68,11 @@ function handleClick(state, elements) {
     updateScore(elements.scoreDisplay, state.count);
 }
 
+function handleValidateButtonClick(state, elements) {
+    const player = createPlayer(username.value);
+    postData(player);
+}
+
 // Gestionnaire de changement de timer
 function handleTimerChange(event, elements) {
     elements.timerDisplay.textContent = event.target.value;
@@ -80,7 +85,9 @@ function initGame(state) {
         buttonReset: document.querySelector("#button-reset"),
         timerDisplay: document.querySelector("#timer"),
         timerSelect: document.querySelector("#timer-select"),
-        scoreDisplay: document.querySelector("#score-display")
+        scoreDisplay: document.querySelector("#score-display"),
+        pseudoInput: document.querySelector("#pseudo"),
+        buttonPseudo: document.querySelector("#button-pseudo")
     };
     
     elements.timerDisplay.textContent = elements.timerSelect.value;
@@ -88,6 +95,7 @@ function initGame(state) {
     elements.timerSelect.addEventListener('change', (e) => handleTimerChange(e, elements));
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
+    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(state, elements));
     
     createPlayer(username);
 
