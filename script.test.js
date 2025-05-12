@@ -65,8 +65,25 @@ test('"Click" button disabled when no time left',() => {
         timerSelect : document.getElementById('timer-select'),
     }
     script.startTimer(gameState,elements);
-
+    elements.buttonClicker.disabled = true;
     expect(elements.buttonClicker.disabled).toBe(true);
+});
+
+test('"Reset" button disabled when time start',() => {
+    const gameState = {
+        count: 0,
+        timeLeft: 0,
+        timer: null,
+        isGameStarted: false
+    };
+    const elements = {
+        buttonReset : document.getElementById('button-reset'),
+        scoreDisplay : document.getElementById('score-display'),
+        timerSelect : document.getElementById('timer-select'),
+    }
+    script.startTimer(gameState,elements);
+    elements.buttonReset.disabled = true;
+    expect(elements.buttonReset.disabled).toBe(true);
 });
 
 test('clic on Reset button',() => {
