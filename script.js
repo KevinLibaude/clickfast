@@ -70,7 +70,7 @@ function handleClick(state, elements) {
     updateScore(elements.scoreDisplay, state.count);
 }
 
-function handleValidateButtonClick(state, elements) {
+function handleValidateButtonClick(elements) {
     const username = elements.pseudoInput.value.trim();
     
     if (!username) {
@@ -104,16 +104,24 @@ function initGame(state) {
         timerSelect: document.querySelector("#timer-select"),
         scoreDisplay: document.querySelector("#score-display"),
         pseudoInput: document.querySelector("#pseudo"),
-        buttonPseudo: document.querySelector("#button-pseudo")  // Ajout du bouton de validation
+        buttonPseudo: document.querySelector("#button-pseudo") 
     };
-    
+
+    // Vérification des éléments
+    for (const [key, element] of Object.entries(elements)) {
+        if (!element) {
+            console.error(`Élément ${key} non trouvé`);
+            return null;
+        }
+    }
+
     elements.timerDisplay.textContent = elements.timerSelect.value;
     
     elements.timerSelect.addEventListener('change', (e) => handleTimerChange(e, elements));
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
     
-    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(state, elements));
+    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(elements));
 
     createPlayer(username);
 
