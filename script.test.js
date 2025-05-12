@@ -172,10 +172,7 @@ test('Game init', () => {
 });
 
 test('Player Creation', () => {
-    const player = {
-        username: "Kevin",
-        score: 0
-    }
-    script.createPlayer(player);
-    expect(player.username).toBe("Kevin");
+    const createdPlayer = script.createPlayer("Kevin");
+
+    expect(createdPlayer.username).toBe("Kevin");
 });

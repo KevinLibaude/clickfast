@@ -17,9 +17,10 @@ function updateScore(scoreDisplay, count) {
     scoreDisplay.textContent = `Score : ${count}`;
 }
 
-function createPlayer(player){
-    this.username = username;
-    this.score = 0;
+function createPlayer(username){
+    player.username = username
+    player.score = 0;
+    return player;
 }
 
 // Fonction pour réinitialiser le jeu
