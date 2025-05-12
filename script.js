@@ -71,14 +71,22 @@ function handleClick(state, elements) {
 }
 
 function handleValidateButtonClick(state, elements) {
-    const player = createPlayer(elements.pseudoInput.value);
+    const username = elements.pseudoInput.value.trim();
+    
+    if (!username) {
+        alert('Veuillez entrer un pseudo');
+        return;
+    }
+
     try {
-        postData(player);
+        const player = createPlayer(username);
         elements.pseudoInput.disabled = true;
         elements.buttonPseudo.disabled = true;
+        elements.buttonClicker.disabled = false;  // Active le bouton de jeu
+        return player;
     } catch (error) {
         console.error('Error:', error);
-        alert('Erreur lors de l\'envoi du score');
+        alert('Erreur lors de la création du joueur');
     }
 }
 
@@ -95,6 +103,8 @@ function initGame(state) {
         timerDisplay: document.querySelector("#timer"),
         timerSelect: document.querySelector("#timer-select"),
         scoreDisplay: document.querySelector("#score-display"),
+        pseudoInput: document.querySelector("#pseudo"),
+        buttonPseudo: document.querySelector("#button-pseudo")  // Ajout du bouton de validation
     };
     
     elements.timerDisplay.textContent = elements.timerSelect.value;
@@ -103,6 +113,8 @@ function initGame(state) {
     elements.buttonClicker.addEventListener("click", () => handleClick(state, elements));
     elements.buttonReset.addEventListener("click", () => resetGame(state, elements));
     
+    elements.buttonPseudo.addEventListener("click", () => handleValidateButtonClick(state, elements));
+
     createPlayer(username);
 
     return elements;
