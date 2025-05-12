@@ -241,7 +241,7 @@ const postData = async () => {
   };
   
   getData();
-  deleteUserByUsername(usernameToDelete);
+  deleteUserByUsername(username);
   postData();
 
 module.exports = {
