@@ -113,7 +113,7 @@ async function displayScores() {
         }
 
         // Prendre les 10 meilleurs scores
-        scores.slice(0, 10).forEach(score => {
+        scores.forEach(score => {
             const clone = template.content.cloneNode(true);
             
             // Remplissage des données
